@@ -467,8 +467,13 @@ def extra_turn_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls 0 dice if it gives at least CUTOFF points and does not give an extra turn.
     Otherwise, it rolls NUM_ROLLS.
     """
+    gain = free_bacon(opponent_score)
+    new_score = score + gain #这一步是为了给extra_turn用的，把加后的值给出来再判断是否需要加轮次
     # BEGIN PROBLEM 11
-    return 6  # Replace this statement
+    if ( bacon_strategy(score,opponent_score,cutoff,num_rolls) == 0 or extra_turn(new_score,opponent_score) ):
+        return 0
+    else:
+        return num_rolls  # Replace this statement
     # END PROBLEM 11
 
 
@@ -478,7 +483,15 @@ def final_strategy(score, opponent_score):
     *** YOUR DESCRIPTION HERE ***
     """
     # BEGIN PROBLEM 12
-    return 6  # Replace this statement
+    if score - opponent_score >= 10:
+        return extra_turn_strategy(score,opponent_score,cutoff=8,num_rolls=6)
+    elif score - opponent_score <= 10 and score - opponent_score >= 0:
+        return extra_turn_strategy(score,opponent_score,cutoff=8,num_rolls=4)
+    else :
+        return extra_turn_strategy(score,opponent_score,cutoff=8,num_rolls=8)
+     
+
+     # Replace this statement
     # END PROBLEM 12
 
 ##########################
