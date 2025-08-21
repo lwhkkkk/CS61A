@@ -11,7 +11,7 @@ FIRST_101_DIGITS_OF_PI = 3141592653589793238462643383279502884197169399375105820
 ######################
 
 
-def roll_dice(num_rolls, dice=six_sided):
+def roll_dice(num_rolls, dice=six_sided): 
     """Simulate rolling the DICE exactly NUM_ROLLS > 0 times. Return the sum of
     the outcomes unless any of the outcomes is 1. In that case, return 1.
 
@@ -30,7 +30,7 @@ def roll_dice(num_rolls, dice=six_sided):
         num_box.append(dice())
         n = n -1
     
-    for i in range(num_rolls):
+    for i in range(num_rolls): #range用来接int类型的数据 
         if num_box[i] == 1:
             return 1
         else :
@@ -53,9 +53,9 @@ def free_bacon(score):
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
     pi = FIRST_101_DIGITS_OF_PI
-    pi = pi // 10 **(100-score)
+    pi = pi // 10 **(100-score)  #通过10的次方来取pi的最后一位
  
-    return pi % 10 + 3
+    return pi % 10 + 3 #返回pi的个位
 
 
     # Trim pi to only (score + 1) digit(s)
@@ -90,8 +90,8 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
         return i
     # END PROBLEM 3
 
-
-def extra_turn(player_score, opponent_score):
+#通过之前的写的两个函数来统一调动两个函数 
+def extra_turn(player_score, opponent_score): 
     """Return whether the player gets an extra turn."""
     return (pig_pass(player_score, opponent_score) or
             swine_align(player_score, opponent_score))
@@ -171,7 +171,7 @@ def silence(score0, score1):
     """Announce nothing (see Phase 2)."""
     return silence
 
-
+#play主函数
 def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
          goal=GOAL_SCORE, say=silence):
     """Simulate a game and return the final scores of both players, with Player
@@ -235,7 +235,7 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
 # Phase 2: Commentary #
 #######################
 
-
+#返回函数，这样可以通过score更新信息
 def say_scores(score0, score1):
     """A commentary function that announces the score for each player."""
     print("Player 0 now has", score0, "and Player 1 now has", score1)
