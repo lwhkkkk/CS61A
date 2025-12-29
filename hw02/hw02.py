@@ -23,6 +23,15 @@ def num_eights(x):
     True
     """
     "*** YOUR CODE HERE ***"
+    if x < 10:
+        if x == 8:
+            return 1
+        else:
+            return 0
+    if x % 10 == 8:
+        return 1 + num_eights(x // 10)
+    else:
+        return 0 + num_eights(x // 10)
 
 
 def pingpong(n):
@@ -58,6 +67,19 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(index,current_value,direction):
+        if index == n:
+            return current_value
+
+        if num_eights(index) >= 1 or index % 8 == 0 : #注意这个的==0 
+            return helper(index + 1, current_value - direction ,-direction)
+        else:
+            return helper(index + 1 ,current_value + direction ,direction)
+        
+
+    return helper(1,1,1)
+
+
 
 
 def missing_digits(n):
@@ -87,7 +109,22 @@ def missing_digits(n):
     >>> check(HW_SOURCE_FILE, 'missing_digits', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    "*** YOUR CODE HERE ***"    
+    if n < 10:
+        return 0
+    last_digit = n % 10
+    second_last_digit = (n // 10) % 10
+
+    if last_digit == second_last_digit:
+        current_missing = 0
+    else:
+        current_missing = last_digit - second_last_digit  - 1 #注意是减1
+
+    return current_missing + missing_digits(n // 10)
+
+
+
+
 
 
 def next_largest_coin(coin):
@@ -108,7 +145,7 @@ def next_largest_coin(coin):
         return 25
 
 
-def count_coins(total):
+def count_coins(total): #分裂树
     """Return the number of ways to make change for total using coins of value of 1, 5, 10, 25.
     >>> count_coins(15)
     6
@@ -124,6 +161,25 @@ def count_coins(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    def helper(amount,coin):
+
+        if amount == 0:
+            return 1 #找到了一种方法
+        
+        if amount < 0:
+            return 0
+        
+        if coin is None:
+            return 0
+        
+        #递归分支
+        with_coin = helper(amount - coin , coin) #递归完所有with_coin才运行without_coin，所以逻辑切换是一次次
+
+        without_coin = helper(amount,next_largest_coin(coin))
+
+        return with_coin + without_coin
+    
+    return helper(total ,1 )
 
 
 from operator import sub, mul
@@ -138,5 +194,5 @@ def make_anonymous_factorial():
     >>> check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
     True
     """
-    return 'YOUR_EXPRESSION_HERE'
-
+    #没懂
+    return (lambda f: lambda n: 1 if n == 1 else mul(n, f(f)(sub(n, 1))))(lambda f: lambda n: 1 if n == 1 else mul(n, f(f)(sub(n, 1))))
