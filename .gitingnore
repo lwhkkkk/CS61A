@@ -1,0 +1,20 @@
+# Python virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Conda environments
+.conda/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.*
